@@ -2,6 +2,11 @@
 
 # Password Manager Application 🛡️ 🔑
 
+<image src="screenshots/screenshot1">
+<image src="screenshots/screenshot2">
+<image src="screenshots/screenshot3">
+<image src="screenshots/screenshot4">
+
 This is a password management application developed in Python, using the libraries `sqlite3`, `customtkinter`, `pyperclip`, `PySimpleGUI`, and `CTkTable`. The application allows you to add, view, copy, and remove password-related information.
 
 ## Initial Configuration
