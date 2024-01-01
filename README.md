@@ -15,7 +15,7 @@ The application uses an SQLite database located at "_internal/data.db". If the "
 ## Key Features
 
 ### Add Information
-In the "Add Info" tab, you can enter an ID, information, and a password, then click the "Add!" button to add this data to the "data" table in the SQLite database. The ID is optional, but information and passwords are required. After addition, the table is updated, and an empty row is added.
+In the "Add Info" tab, you can enter an ID, information, and a password, then click the "Add!" button to add this data to the "data" table in the SQLite database. The ID is required, but information and passwords aren't. After addition, the table is updated, and an empty row is added.
 
 ### View Information
 The "View Info" tab displays a scrollable table containing all the information stored in the "data" table. The table is initially loaded with the data present in the SQLite database.
