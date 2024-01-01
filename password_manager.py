@@ -1,4 +1,4 @@
-'''
+gpl3_text = '''
     Simple Password Manager Written In Python!
     GPL3 License: https://www.gnu.org/licenses/gpl-3.0.en.html#license-text
 
@@ -23,9 +23,10 @@ from customtkinter import *
 from pyperclip import copy
 from PySimpleGUI import popup_quick_message as alert
 from CTkTable import *
+import secrets, string
 
 #Initial Configuration
-conn = sqlite3.connect("_internal/data.db")
+conn = sqlite3.connect("data.db")
 cursor = conn.cursor()
 cursor.execute("CREATE TABLE IF NOT EXISTS dados (id INT PRIMARY KEY, info TEXT, password TEXT);")
 
@@ -76,16 +77,57 @@ def Main():
             except Exception as error:
                 alert(error, font=("Arial", 30, "bold"))
 
-    set_widget_scaling(1.3)
+    def Generate_Password():
+        chars = string.ascii_letters+string.digits+string.punctuation
+        password = "".join(secrets.choice(chars) for i in range(password_size))
+        password_label.configure(text=password)
+        copy(password)
+    
+    def Set_Password_Size(value):
+        nonlocal password_size
+        password_size = int(value)
+        text.configure(text=f"Password Size: {password_size}")
+    
+    default_minimum = 16
+    default_maximum = 64
+    
+    #Password Size or Length
+    password_size = default_minimum
+
+    set_appearance_mode("dark")
+    set_default_color_theme("green")
+    set_widget_scaling(1.2)
     app = CTk()
     app.title("Password Manager🛡️ 🔑")
-    app.geometry("800x550")
+    app.geometry("820x500")
     tabview = CTkTabview(master=app)
-    tab1 = tabview.add("Add Info")
-    tab2 = tabview.add("View Info")
-    tab3 = tabview.add("Copy Info")
-    tab4 = tabview.add("Remove Info")
+    genp = tabview.add("Generate")
+    tab1 = tabview.add("Add")
+    tab2 = tabview.add("View")
+    tab3 = tabview.add("Copy")
+    tab4 = tabview.add("Remove")
+    about = tabview.add("About")
     tabview.pack(pady=10, padx=10)
+
+    #Generating Password
+    frame = CTkFrame(master=genp, height=50)
+    frame.pack(pady=20, padx=10)
+    
+    password_label = CTkLabel(master=frame, text="Password", font=("Times New Roman", 15, "bold"))
+    password_label.pack(pady=30, padx=30)
+    
+    text = CTkLabel(master=genp, text=f"Password Size: {password_size}", font=("Arial", 12, "bold"))
+    text.pack()
+    
+    password_size_slider = CTkSlider(master=genp, from_=default_minimum, to=default_maximum, command=Set_Password_Size)
+    password_size_slider.set(password_size)
+    password_size_slider.pack()
+    
+    generate_button = CTkButton(master=genp, text="Generate!", font=("Arial", 35, "bold"), command=Generate_Password)
+    generate_button.pack(pady=30, padx=30)
+
+
+
 
     id = CTkEntry(
         master=tab1,
@@ -170,6 +212,9 @@ def Main():
     )
     remove_button.pack(pady=60, padx=10)
 
+
+    about_text = CTkLabel(master=about, text=gpl3_text, justify="left", font=("Arial", 15, "bold"))
+    about_text.pack(pady=10, padx=10)
 
     app.mainloop()
 
