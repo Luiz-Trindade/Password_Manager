@@ -10,7 +10,7 @@
 This is a password management application developed in Python, using the libraries `sqlite3`, `customtkinter`, `pyperclip`, `PySimpleGUI`, and `CTkTable`. The application allows you to add, view, copy, and remove password-related information.
 
 ## Initial Configuration
-The application uses an SQLite database located at "_internal/data.db". If the "data" table doesn't exist, it is created with columns "id" (primary key), "info," and "password."
+The application uses an SQLite database located at the current directory. If the "data" table doesn't exist, it is created with columns "id" (primary key), "info," and "password."
 
 ## Key Features
 
